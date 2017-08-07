@@ -6,11 +6,13 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 
 @Entity
-class Author {
+class Author (
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id:Long = 0
-    var name:String = ""
+    val id:Long,
+    val name:String
 
+){
+    private constructor():this(0,"")
 }
