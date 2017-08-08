@@ -3,20 +3,23 @@ package br.com.caelum.almoco.tecnico.domain
 import javax.persistence.*
 
 @Entity
-class Book {
+class Book (
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id:Long = 0
+    var id:Long,
 
-    var title:String = ""
+    var title:String,
 
     @Lob
-    var summary:String = ""
+    var summary:String,
 
     @ManyToMany
-    var authors:List<Author> = arrayListOf()
-    
+    var authors:MutableList<Author> = arrayListOf()
+
+){
+
+    private constructor():this(0,"","", arrayListOf())
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -36,6 +39,18 @@ class Book {
         result = 31 * result + title.hashCode()
         result = 31 * result + authors.hashCode()
         return result
+    }
+
+    fun add(author: Author) {
+        authors.add(author)
+    }
+
+    fun remove(author: Author) {
+        authors.remove(author)
+    }
+
+    override fun toString(): String {
+        return "Book(id=$id, title='$title', summary='$summary', authors=$authors)"
     }
 
 
